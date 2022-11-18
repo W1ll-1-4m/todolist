@@ -5,14 +5,13 @@
     </head>
     <body>
         <table class="table table-hover">
+            
+            {% for task in tasks: %}
             <tr>
-                <td>Linha 1, Coluna 1</td>
-                <td>Linha 1, Coluna 2</td>
+                <td>{{task['name']}}</td>
+                <td>{{task['finished']}}</td>
             </tr>
-            <tr>
-                <td>Linha 2, Coluna 1</td>
-                <td>Linha 2, Coluna 2</td>
-            </tr>
+            {% endfor %}
         </table>
     </body>
 </html>
