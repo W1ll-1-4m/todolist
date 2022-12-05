@@ -1,25 +1,56 @@
-<html>
-    <head>
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Home</title>
+</head>
+<body>
 
-        <br/>
-
-        <form class="container" action="create" method="POST">
-            <input name='name' class="form-control"/>
-            <button class="btn btn-primary">Salvar</button> 
+    <div class="container">
+        <form name="nome" action="/create" method="POST">
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" name="nome" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Quantidade</label>
+                <input type="text" name="quantidade" required="true"  class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Preço</label>
+                <input type="number" name="preco" class="form-control"/>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px">Salvar</button>
         </form>
+    </div>
 
+    <div class="container-fluid">
         <table class="table table-hover">
-            
-            {% for task in tasks: %}
             <tr>
-                <td>{{task['name']}}</td>
-                <td>{{task['finished']}}</td>
+                <th>Nome</th>
+                <th>Data</th>
+                <th>Preço</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+
+            {% for produto in produtos %}
+            <tr>
+                <td>{{produto['Nome']}}</td>
+                <td>{{produto['Quantidade']}}</td>
+                <td>{{produto['Preco']}}</td>
+                <td><a href="/update/{{produto['Id']}}" class="btn btn-sm btn-outline-success">Editar</a></td>
+                <td><a href="/delete/{{produto['Id']}}" class="btn btn-sm btn-danger">Deletar</a></td>
             </tr>
             {% endfor %}
+
         </table>
-    </body>
+
+    </div>
+
+</body>
+
 </html>
