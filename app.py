@@ -64,36 +64,41 @@ def update(id, nome, quantidade, preco):
 
 
 #salva os forms que foram modificados do /update/
-@app.route('/saveup', methods=['POST'])
-def saveup():
+@app.route('/updateProduct', methods=['POST'])
+def updateProduct():
 
-    #obtem as novas variaveis
-    id = request.form['id'] # o id esta ocultado na pagina
+    #print('Entrou na rota')
+
+    id = request.form['id']
     nome = request.form['nome']         
-    data = request.form['data'] 
+    quantidade = request.form['quantidade'] 
     preco = request.form['preco']
 
-    #abre o dataframe do .csv
-    data = pd.read_csv("compras.csv")
+    #print(id, nome, quantidade, preco)
 
-    #cria um novo dataframe apartir das novas variaveis
-    new_df = pd.DataFrame({'Id': [id],'Nome': [nome],'Data': [dat],'Preco': [preco]})
+    produtos_list = []
 
-    #seta os index's para a coluna 'Id'
-    #n sei se isso é necessario mas na minha mente faz sentido 
-    data = data.set_index("Id")
-    new_df = new_df.set_index("Id")
+    with open('produtos.csv', 'rt') as file_in:
+        produtos = csv.DictReader(file_in)
+        for produto in produtos:
+            produtos_list.append(produto)
 
-    #atualiza os dados do data frame antigo com o novo
-    data.update(new_df)
+        with open('produtos.csv', 'wt', newline='') as file_out:
 
-    #salva o arquivo
-    data.to_csv('compras.csv')
+            fieldnames = ['Id', 'Nome','Quantidade','Preco']
+            writer = csv.DictWriter(file_out, fieldnames=fieldnames)
 
-    #redireciona para "/"
-    with open('compras.csv', 'rt') as file_in:
-        compras = csv.DictReader(file_in)
-        return render_template('index.html', compras=compras)
+            writer.writeheader()
+            writer = csv.writer(file_out)
+            for index, produto in enumerate(produtos_list):
+                if produto['Id'] == id:
+                    print('NORMAL', produto)
+                    writer.writerow([id, nome, quantidade, preco])
+                else:
+                    print('UP', produto)
+                    writer.writerow([produtos_list[index]['Id'], produtos_list[index]['Nome'], produtos_list[index]['Quantidade'], produtos_list[index]['Preco']])
+    
+    return home()
 
 def show_products():
     with open('produtos.csv', 'rt') as file_in:
