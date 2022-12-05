@@ -51,11 +51,16 @@ def delete(id):
     return home()
     
 
-#pega as variaveis da row que o usuario quer modificar e coloca dentro dos forms
-@app.route('/update/<id>/<nome>/<data>/<preco>')
-def update(id,nome,data,preco):#obtem as var pela url 
-    lista = [id,nome,data,preco]#transforma em lista para facilitar
-    return render_template('update.html', lista=lista) #e joga para o update.html
+@app.route('/update/<id>/<nome>/<quantidade>/<preco>')
+def update(id, nome, quantidade, preco):
+    lista = {
+        "id": id,
+        "nome": nome,
+        "quantidade": quantidade,
+        "preco": preco
+    }
+
+    return render_template('update.html', lista=lista)
 
 
 #salva os forms que foram modificados do /update/
