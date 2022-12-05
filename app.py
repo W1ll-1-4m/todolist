@@ -27,7 +27,6 @@ def create():
 @app.route('/delete/<id>')
 def delete(id):
 
-    index_id = None
     produtos_list = []
 
     with open('produtos.csv', 'rt') as file_in:
