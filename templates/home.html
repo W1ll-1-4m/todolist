@@ -10,7 +10,7 @@
 <body>
 
     <div class="container">
-        <form name="nome" action="/create" method="POST">
+        <form action="/create" method="POST">
             <div class="form-group">
                 <label>Nome</label>
                 <input type="text" name="nome" class="form-control"/>
@@ -31,7 +31,7 @@
         <table class="table table-hover">
             <tr>
                 <th>Nome</th>
-                <th>Quantidade</th>
+                <th>Data</th>
                 <th>Preço</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
@@ -42,7 +42,7 @@
                 <td>{{produto['Nome']}}</td>
                 <td>{{produto['Quantidade']}}</td>
                 <td>{{produto['Preco']}}</td>
-                <td><a href="/update/{{produto['Id']}}" class="btn btn-sm btn-outline-success">Editar</a></td>
+                <td><a href="/update/{{produto['Id']}}/{{produto['Nome']}}/{{produto['Quantidade']}}/{{produto['Preco']}}" class="btn btn-sm btn-outline-success">Editar</a></td>
                 <td><a href="/delete/{{produto['Id']}}" class="btn btn-sm btn-danger">Deletar</a></td>
             </tr>
             {% endfor %}
